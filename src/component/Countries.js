@@ -35,8 +35,14 @@ const Countries = () => {
     const getCountries = async () => {
       try {
         const res = await fetch("https://restcountries.com/v3.1/all");
-        const data = await res.json();
-        setCountries(data.slice(0, 10));
+
+        if(!res.ok){
+          <h1>Page not found</h1>
+        }else{
+          const data = await res.json();
+          setCountries(data);
+        }
+        
       } catch (error) {
         console.error(error);
       }
@@ -80,6 +86,7 @@ const Countries = () => {
       const data = await res.json();
       setCountries(data);
     } catch (err) {
+      <h1> Eroro</h1>
       console.error(err);
     }
   };

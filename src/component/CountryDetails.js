@@ -26,18 +26,18 @@ const CountryDetails = () => {
     document.title = `Countries | ${name}`;
   }, [name]);
   return (
-    <>
+    <div className="dark:bg-gray-800">
       <div className="details_section p-8 md:py-0 max-w-7xl mx-auto dark:bg-gray-800 dark:text-white h-screen ">
         <Link
           to="/"
-          className="inline-block mt-8 bg-white py-3 px-5  rounded shadow text-gray-700 hover:bg-gray-200 gap-8 transition-all duration-200 dark:bg-gray-800 dark:hover:bg-gray dark:text-gray-400"
+          className="inline-block mt-8 bg-white py-3 px-5  rounded shadow text-gray-700 hover:bg-gray-200 gap-8 transition-all duration-200 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-400"
         >
           &larr; Back
         </Link>
         {country.map((item) => (
           <div
             key={item.population}
-            className="grid grid-cols-1 :gap-8 grid-cols-2  md:h-screen items-center mt- "
+            className="grid grid-cols-1 gap-8 grid-cols-2  mt-40  items-center  "
           >
             <div className="card_img w-full">
               <img
@@ -77,7 +77,7 @@ const CountryDetails = () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
