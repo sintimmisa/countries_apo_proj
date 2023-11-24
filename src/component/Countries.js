@@ -24,8 +24,7 @@ const Countries = () => {
     },
   ];
 
-  const [searchTerm, setSearchTerm]=useState("");
-
+  const [searchTerm, setSearchTerm] = useState("");
 
   /**
    * Fetch all countries data
@@ -43,34 +42,58 @@ const Countries = () => {
     getCountries();
   }, []);
 
+
+
+    const filterByRegions = async (region) => {
+    try {
+      const res = await fetch(
+        `https://restcountries.com/v3.1/region/${region}`
+      );
+      const data = await res.json();
+
+      setCountries(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /**Handle filterbyRegion on form submit function */
+
+  const handleFilterByRegions = (e) => {
+    e.preventDefault();
+    filterByRegions();
+  };
   /**
    * Search Function to search through api
    *
    */
-const searchCountry=async ()=>{
-  try{
-
-    const res=await fetch(`https://restcountries.com/v3.1/name/${searchTerm}`);
-    const data = await res.json();
-    setCountries(data);
-
-
-  }catch(err){
-console.error(err)
-  }
-
-}
-
-
+  const searchCountry = async () => {
+    try {
+      const res = await fetch(
+        `https://restcountries.com/v3.1/name/${searchTerm}`
+      );
+      const data = await res.json();
+      setCountries(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   /**
    * function to handle search
    */
 
-  const handleSearch=(e)=>{
-e.preventDefault();
-searchCountry();
-  }
+  const handleSearch = (e) => {
+    e.preventDefault();
+    searchCountry();
+  };
+
+  /**
+   * Filter through API by Regions
+   */
+
+ 
+
   return (
     <>
       {!countries ? (
@@ -81,7 +104,11 @@ searchCountry();
         <div className="container mx-auto p-8">
           {/**forms */}
           <div className=" flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-8">
-            <form autoComplete="off" className="search max-w-4xl md:flex-1" onSubmit={handleSearch}>
+            <form
+              autoComplete="off"
+              className="search max-w-4xl md:flex-1"
+              onSubmit={handleSearch}
+            >
               <input
                 type="text"
                 placeholder="Search for a country by its name"
@@ -89,15 +116,17 @@ searchCountry();
                 id="search"
                 required
                 value={searchTerm}
-                onChange={(e)=> setSearchTerm(e.target.value)}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="py-3 px-4 text-gray-600 placeholder-gray-600 w-full shadow rounded outline-none {/*dark:text-gray-400 duration-200 dark:placeholder-gray-400 dark:bg-gray-800* dark:focus:bg-gray-700/} transition-all"
               />
             </form>
 
-            <form>
+            <form onSubmit={handleFilterByRegions}>
               <select
                 name="filter-by-region"
                 id="filter-by-region"
+                value={regions.name}
+                onChange={(e) => filterByRegions(e.target.value)}
                 className="py-3 px-4 shadow text-gray-600  shadow rounded outline-none w-52 text-gray-800 {/*dark:text-gray-400*/}"
               >
                 {/**get Regions from the regions array */}
