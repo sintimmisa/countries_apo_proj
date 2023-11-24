@@ -41,7 +41,10 @@ const Countries = () => {
     };
     getCountries();
   }, []);
+  useEffect(()=>{
+    document.title= `Showing All Countries`;
 
+  },[]);
 
 
     const filterByRegions = async (region) => {

@@ -21,6 +21,12 @@ const CountryDetails = () => {
 
     getCountryDetails();
   }, [name]);
+
+  /**Dislay country name on titlebar */
+  useEffect(()=>{
+    document.title= `Countries | ${name}`;
+
+  },[name]);
   return (
     <>
       <div className="details_section p-8 md:py-0 max-w-7xl mx-auto">
